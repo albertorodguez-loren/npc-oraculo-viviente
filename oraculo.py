@@ -44,8 +44,13 @@ def generar_voz(texto):
     return None
 
 # 4. INTERFAZ DE USUARIO
-st.title("🗼 Breogán 3.0: El Oráculo de Cristal")
-st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Tower_of_Hercules_Vista.jpg/800px-Tower_of_Hercules_Vista.jpg", caption="El Faro de Neo-Vigo")
+#st.title("🗼 Breogán 3.0: El Oráculo de Cristal")
+#st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Tower_of_Hercules_Vista.jpg/800px-Tower_of_Hercules_Vista.jpg", caption="El Faro de Neo-Vigo")
+
+if os.path.exists("logo_faro.png"):
+    st.image("logo_faro.png", caption="El Faro de Neo-Vigo (Año 2150)")
+else:
+    st.warning("⚠️ Logo del faro no encontrado en GitHub.")
 
 if prompt := st.chat_input("Pregúntalle ao vello Breogán..."):
     with st.chat_message("user"):
