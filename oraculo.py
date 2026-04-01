@@ -16,10 +16,6 @@ VOICE_ID = "nPczCjzI2devP9EnXasf" # Una voz profunda de hombre (puedes cambiarla
 genai.configure(api_key=GEMINI_KEY)
 model = genai.GenerativeModel('gemini-2.5-flash')
 
-
-# ID de voz de ElevenLabs (Este es 'Marcus', una voz profunda)
-#VOICE_ID = "nPczCjzI2devP9EnXasf" 
-
 # 2. LORE Y PERSONALIDAD
 LORE = """
 Eres Breogán 3.0, una IA atrapada en un faro de cristal en la Galicia del año 2150.
@@ -49,10 +45,6 @@ def generar_voz(texto):
         return "respuesta.mp3"
     return None
 
-# 4. INTERFAZ DE USUARIO
-#st.title("🗼 Breogán 3.0: El Oráculo de Cristal")
-#st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Tower_of_Hercules_Vista.jpg/800px-Tower_of_Hercules_Vista.jpg", caption="El Faro de Neo-Vigo")
-
 if os.path.exists("logo_faro.png"):
     st.image("logo_faro.png", caption="El Faro de Neo-Vigo (Año 2150)")
 else:
@@ -73,4 +65,4 @@ if prompt := st.chat_input("Pregúntalle ao vello Breogán..."):
         with st.spinner("Breogán está a coller aire..."):
             audio_path = generar_voz(texto_ia)
             if audio_path:
-                st.audio(audio_path, format="audio/mp3")
+                st.audio(audio_path, format="audio/mp3", autoplay=True) # Autoplay para que suene solo
