@@ -1,18 +1,33 @@
+
+
+# Claves (Asegúrate de ponerlas en los Secrets de Streamlit o .env)
+#GEMINI_KEY = st.secrets["GEMINI_API_KEY"]
+#ELEVEN_KEY = st.secrets["ELEVENLABS_API_KEY"]
+#VOICE_ID = "nPczCjzI2devP9EnXasf" # Una voz profunda de hombre (puedes cambiarla en ElevenLabs)
+
+#genai.configure(api_key=GEMINI_KEY)
+#model = genai.GenerativeModel('gemini-2.5-flash')
+
 import streamlit as st
 import google.generativeai as genai
 import requests
 import os
 
-# 1. CONFIGURACIÓN
+# 1. CONFIGURACIÓN (DEBE SER LO PRIMERO)
 st.set_page_config(page_title="Breogán 3.0: El Oráculo Gallego", page_icon="🗼")
 
-# Claves (Asegúrate de ponerlas en los Secrets de Streamlit o .env)
-GEMINI_KEY = st.secrets["GEMINI_API_KEY"]
-ELEVEN_KEY = st.secrets["ELEVENLABS_API_KEY"]
-VOICE_ID = "nPczCjzI2devP9EnXasf" # Una voz profunda de hombre (puedes cambiarla en ElevenLabs)
+# 2. LLAVES Y MODELO
+try:
+    api_key_google = st.secrets["GEMINI_API_KEY"]
+    api_key_eleven = st.secrets["ELEVENLABS_API_KEY"]
+    genai.configure(api_key=api_key_google)
+    # USAMOS EL MODELO 1.5 FLASH (Más estable)
+    model = genai.GenerativeModel('gemini-2.5-flash')
+except Exception as e:
+    st.error("🔑 Error con las API Keys en Secrets.")
 
-genai.configure(api_key=GEMINI_KEY)
-model = genai.GenerativeModel('gemini-2.5-flash')
+# ID de voz de ElevenLabs (Este es 'Marcus', una voz profunda)
+VOICE_ID = "nPczCjzI2devP9EnXasf" 
 
 # 2. LORE Y PERSONALIDAD
 LORE = """
