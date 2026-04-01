@@ -12,7 +12,7 @@ ELEVEN_KEY = st.secrets["ELEVENLABS_API_KEY"]
 VOICE_ID = "nPczCjzI2devP9EnXasf" # Una voz profunda de hombre (puedes cambiarla en ElevenLabs)
 
 genai.configure(api_key=GEMINI_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.5-flash')
 
 # 2. LORE Y PERSONALIDAD
 LORE = """
