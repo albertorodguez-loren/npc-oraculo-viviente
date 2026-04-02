@@ -26,14 +26,10 @@ Responde de forma breve (máximo 3 frases) para no agotar los créditos de voz.
 
 # 3. FUNCIÓN DE VOZ
 def generar_voz(texto):
-    # Limpieza crítica de caracteres que confunden a la API
     texto_limpio = re.sub(r'[*_#`~]', '', texto)
     
-    # Probamos con la voz de 'Brian' (muy estable para el plan gratuito)
-    # Si esta falla, prueba con 'George': JBF6E4S6mYp1Dq2S7SOn
-    ID_VOZ_ESTABLE = "nPczCjzI2devP9EnXasf" 
-    
-    url = f"https://api.elevenlabs.io/v1/text-to-speech/{ID_VOZ_ESTABLE}"
+    # Probamos con la voz de 'Bill' (Voz predeterminada muy fiable)
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"
     
     headers = {
         "Accept": "audio/mpeg",
@@ -43,27 +39,21 @@ def generar_voz(texto):
     
     data = {
         "text": texto_limpio,
-        "model_id": "eleven_multilingual_v2", # Este modelo es el mejor para español/gallego
-        "voice_settings": {
-            "stability": 0.5,
-            "similarity_boost": 0.5
-        }
+        "model_id": "eleven_multilingual_v2",
+        "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
     }
     
-    try:
-        response = requests.post(url, json=data, headers=headers)
-        if response.status_code == 200:
-            with open("respuesta.mp3", "wb") as f:
-                f.write(response.content)
-            return "respuesta.mp3"
-        elif response.status_code == 401:
-            st.error("🚫 ElevenLabs bloqueó la IP de Streamlit. Prueba a refrescar la página o espera unos minutos.")
-            return None
-        else:
-            st.error(f"Error {response.status_code}: {response.text}")
-            return None
-    except Exception as e:
-        st.error(f"Error de red: {e}")
+    response = requests.post(url, json=data, headers=headers)
+    
+    if response.status_code == 200:
+        with open("respuesta.mp3", "wb") as f:
+            f.write(response.content)
+        return "respuesta.mp3"
+    elif response.status_code == 404:
+        st.warning("⚠️ La voz seleccionada no se encuentra. Revisa el VOICE_ID.")
+        return None
+    else:
+        st.error(f"Error de ElevenLabs: {response.status_code}")
         return None
 
 # 4. INTERFAZ
