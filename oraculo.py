@@ -10,7 +10,7 @@ st.set_page_config(page_title="Breogán 3.0: El Oráculo Gallego", page_icon="�
 # 2. LLAVES Y MODELO
 GEMINI_KEY = st.secrets["GEMINI_API_KEY"]
 ELEVEN_KEY = st.secrets["ELEVENLABS_API_KEY"]
-VOICE_ID = "weA4Q36twV5kwSaTEL0Q" 
+VOICE_ID = "phS97DWC9pF3HzuL7viS"
 
 genai.configure(api_key=GEMINI_KEY)
 model = genai.GenerativeModel('gemini-2.5-flash') # He puesto 1.5 por estabilidad, pero 2.5 sirve igual
